@@ -3,7 +3,6 @@
 
 
 // Segment tree for range sum query - 0 based indexing in A, 1 based in segtree.
-
 vector<ll> tree(4*Nmax,0);
 vector<ll> A(Nmax,0);
 
@@ -55,7 +54,6 @@ void update(ll low, ll high, ll idx, ll x, ll val) {
 
 
 // Segment tree for range min query - 0 based indexing in A, 1 based in segtree.
-
 vector<ll> tree(4*Nmax,0);
 vector<ll> A(Nmax,0);
 

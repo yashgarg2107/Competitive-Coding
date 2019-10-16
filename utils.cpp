@@ -22,7 +22,7 @@ using namespace std;
 #define fill_direct(adj,m) for(ll i=0;i<m;i++) {ll a, b; scanf("%lld %lld",&a,&b); adj[a-1].pb(b-1);}
 
 
-// Merge overlapping intervals given in interval array (pairs)
+// Merge overlapping intervals given in interval array (pairs).
 
 void merge_overlapping(vector<pair<ll,ll>> &A) {
 
@@ -55,3 +55,45 @@ void merge_overlapping(vector<pair<ll,ll>> &A) {
     reverse(A.begin(), A.end());
     return;
 }
+
+
+// Binary exponentiation for fast power calculations.
+
+ll power(ll x, ll n) {
+    if(n==0) return 1;
+    if(n==1) return x;
+
+    ll val = power(x,n/2);
+    if(n%2) return val*val*x;
+    return val*val;
+}
+
+// 2nd version for power%d calculations.
+
+ll power(ll x, ll n, ll d) {
+    if(n==0) return 1;
+    if(n==1) return (x%d+d)%d;
+
+    ll val = power(x,n/2);
+    if(n%2) return ((((val*val)%d)*x)%d+d)%d;
+    return (val*val)%d;
+}
+
+
+// Extended Euclid's GCD function.
+
+ll extended_gcd(ll a, ll b, ll &x, ll &y) {
+    if(a==0) {
+        x = 0;
+        y = 1;
+        return b;
+    }
+
+    ll x1, y1;
+    ll g = extended_gcd(b%a, a, x1, y1);
+
+    x = y1-(b/a)*x1;
+    y = x1;
+    return g;
+}
+
