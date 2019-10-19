@@ -115,3 +115,14 @@ ll extended_gcd(ll a, ll b, ll &x, ll &y) {
     return g;
 }
 
+void prefix_matrix(vector<vector<ll>> &A) {
+    ll n = A.size();
+
+    for(ll i=0;i<n;i++) {
+        for(ll j=0;j<n;j++) {
+            A[i][j] += ((i>=1 ? A[i-1][j]:0) + (j>=1 ? A[i][j-1]:0) - ((i*j > 0) ? A[i-1][j-1]:0));
+            // cout<<A[i][j]<<" ";
+        }
+        // cout<<endl;
+    }
+}
