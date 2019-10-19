@@ -115,6 +115,8 @@ ll extended_gcd(ll a, ll b, ll &x, ll &y) {
     return g;
 }
 
+// Function for calculating prefix sums of matrix.
+
 void prefix_matrix(vector<vector<ll>> &A) {
     ll n = A.size();
 
