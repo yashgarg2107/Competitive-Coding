@@ -86,7 +86,21 @@ ll power(ll x, ll n) {
     return val*val;
 }
 
-// 2nd version for power%d calculations.
+// Iterative version.
+
+ll power(ll x, ll n) {
+    ll val = x, res = 1;
+    while(n>0) {
+        if(n&1)
+            res = res*val;
+        val = val*val;
+        n = n>>1;
+    }
+    return res;
+}
+
+
+// Binary exponentiation (mod d) calculations.
 
 ll power(ll x, ll n, ll d) {
     if(n==0) return 1;
@@ -95,6 +109,19 @@ ll power(ll x, ll n, ll d) {
     ll val = power(x,n/2,d);
     if(n%2) return ((((val*val)%d)*x)%d+d)%d;
     return (val*val)%d;
+}
+
+// Iterative version.
+
+ll power(ll x, ll n, ll d) {
+    ll val = (x%d), res = 1;
+    while(n>0) {
+        if(n&1)
+            res = (res*val)%d;
+        val = (val*val)%d;
+        n = n>>1;
+    }
+    return (res+d)%d;
 }
 
 
