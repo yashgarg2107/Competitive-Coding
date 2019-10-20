@@ -1,6 +1,5 @@
 // Functions for prime number related computations.
 
-
 // Sieve of Eratosthenes for marking primes upto n - O(n*loglogn).
 
 void sieve_primes(vector<char> &siv) {
@@ -31,9 +30,10 @@ void sieve_primes(vector<bool> &siv) {
 	}
 }
 
+// ----------------------------------
 // TODO : Linear approach to sieve.
 // Ref - https://cp-algorithms.com/algebra/prime-sieve-linear.html
-
+// ---------------------------------
 
 // Sieve of Euler to mark lowest prime factor for a number.
 
@@ -109,16 +109,57 @@ vector<ll> factorize(ll num) {
 vector<ll> prime_factors(ll num) {
 	
 	vector<ll> res;
-	for(ll i=2;i<=sqrt(num);i++) {
-		if((num%i)==0) { 
-			while((num%i)==0) {
-				res.push_back(i);
-				num/=i;
-			}
+
+	while((num%2)==0) {
+		res.push_back(2);
+		num/=2;
+	}
+
+	for(ll i=3;i<=sqrt(num);i+=2) {
+		while((num%i)==0) {
+			res.push_back(i);
+			num/=i;
 		}
 	}
 
-	if(num!=1)
+	if(num>1)
+		res.push_back(num);
+
+	// for(auto i:res)
+	// 	printf("%lld ",i);
+	// printf("\n");
+
+	return res;
+}
+
+// Prime factorization using precomputed primes.
+
+vector<ll> primes;
+
+void primes_tilln(ll num) {
+	vector<char> siv(num+1,1);
+	sieve_primes(siv);
+
+	for(ll i=2;i<=num;i++)
+		if(siv[i])
+			primes.push_back(i);
+}
+
+vector<ll> prime_factors(ll num) {
+	
+	vector<ll> res;
+
+	for(auto i:primes) {
+		if(i*i>num)
+			break;
+
+		while((num%i)==0) {
+			res.push_back(i);
+			num/=i;
+		}
+	}
+
+	if(num>1)
 		res.push_back(num);
 
 	// for(auto i:res)
