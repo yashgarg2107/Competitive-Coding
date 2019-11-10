@@ -3,7 +3,7 @@
 // Can also use level in case of tree-like graphs
 vector<ll> level(nmax,0);
 
-void bfs(ll idx, vector<vector<ll>> &adj, vector<bool> &visited) {
+void bfs(ll idx, vector<vector<ll>> &adj, vector<char> &visited) {
 
     queue<ll> q;
     q.push(idx);

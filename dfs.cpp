@@ -1,6 +1,6 @@
 // DFS for a graph with adjacency list representation
 
-void dfs(ll idx, vector<vector<ll>> &adj, vector<bool> &visited) {
+void dfs(ll idx, vector<vector<ll>> &adj, vector<char> &visited) {
 
     visited[idx] = 1;
     printf("%lld", idx);
