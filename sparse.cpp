@@ -1,3 +1,5 @@
+// Functions for sparse table creation and range queries.
+
 #define Nmax 1000001
 #define K 25
 

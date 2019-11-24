@@ -1,4 +1,4 @@
-// DFS for a graph with adjacency list representation
+// DFS for a graph with adjacency list representation.
 
 void dfs(ll idx, vector<vector<ll>> &adj, vector<char> &visited) {
 

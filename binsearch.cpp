@@ -1,4 +1,4 @@
-// Variations of Binary Search and applications
+// Variations of Binary Search and applications.
 
 
 // For problems when we apply binary search to the solution.

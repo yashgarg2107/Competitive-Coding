@@ -1,6 +1,7 @@
+// Different implementations for segment trees.
+
 #define ll long long
 #define Nmax 500000
-
 
 // Segment tree for range sum query - 0 based indexing in A, 1 based in segtree.
 vector<ll> tree(4*Nmax,0);

@@ -1,4 +1,4 @@
-// BFS for a graph with adjacency list representation
+// BFS for a graph with adjacency list representation.
 
 // Can also use level in case of tree-like graphs
 vector<ll> level(nmax,0);
