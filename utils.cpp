@@ -17,6 +17,8 @@ using namespace std;
 #define se second
 #define rep(i,n) rep2(i,0,n)
 #define rep2(i,m,n) for(ll i=m;i<(n);i++)
+#define repr(i,n) repr2(i,n,0)
+#define repr2(i,m,n) for(ll i=m;i>=(n);i--)
 #define get(n) ll (n); scanf("%lld",&(n));
 #define get2(n,k) ll (n),(k); scanf("%lld%lld",&(n),&(k));
 #define get3(n,m,k) ll (n),(m),(k); scanf("%lld%lld%lld",&(n),&(m),&(k));
