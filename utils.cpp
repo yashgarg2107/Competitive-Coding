@@ -11,7 +11,6 @@ using namespace std;
 #define Nmax 100001
 #define INF (ll)1e18
 #define pll pair<ll,ll>
-#define pii pair<ll,ll>
 #define mp make_pair
 #define fi first
 #define se second
@@ -27,6 +26,26 @@ using namespace std;
 #define fill_nums(A,n) vector<ll> A((n)); for(ll i=0;i<n;i++) scanf("%lld",&A[i]);
 #define fill_edges(adj,m) for(ll i=0;i<m;i++) {ll a, b; scanf("%lld %lld",&a,&b); adj[a-1].pb(b-1); adj[b-1].pb(a-1);}
 #define fill_direct(adj,m) for(ll i=0;i<m;i++) {ll a, b; scanf("%lld %lld",&a,&b); adj[a-1].pb(b-1);}
+#define StarBurstStream ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+#define pi 3.1415926535897
+
+
+// Minimal template for topcoder.
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define pb push_back
+#define N 1000000007
+#define Nmax 100001
+#define INF (ll)1e18
+#define pll pair<ll,ll>
+#define mp make_pair
+#define fi first
+#define se second
+#define rep(i,n) rep2(i,0,n)
+#define rep2(i,m,n) for(ll i=m;i<(n);i++)
+#define ALL(c) (c).begin(),(c).end()
 #define pi 3.1415926535897
 
 
@@ -46,6 +65,23 @@ struct custom_hash {
         return splitmix64(x + FIXED_RANDOM);
     }
 };
+
+// Custom hash for pair datatype.
+
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        // http://xorshift.di.unimi.it/splitmix64.c
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+
+    size_t operator()(pair<ll,ll> x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x.fi + FIXED_RANDOM) + splitmix64(x.se + FIXED_RANDOM);
+    }
+}; 
 
 
 // Merge overlapping intervals given in interval array (pairs).
@@ -148,7 +184,7 @@ void prefix_matrix(vector<vector<ll>> &A) {
 }
 
 
-// Digit dp code - example
+// Digit dp framework - example
 
 // int main() {
     
