@@ -4,98 +4,122 @@
 #define Nmax 500000
 
 // Segment tree for range sum query - 0 based indexing in A, 1 based in segtree.
-vector<ll> tree(4*Nmax,0);
-vector<ll> A(Nmax,0);
 
-void make_tree(ll low, ll high, ll idx) {
+ll tree[4*Nmax] = {0};
+ll A[Nmax] = {0};
 
+void make_tree(ll idx, ll low, ll high) {
+    
     if(low==high) {
         tree[idx] = A[low];
         return;
     }
 
-    ll mid = low+(high-low)/2;
-    make_tree(low,mid,2*idx);
-    make_tree(mid+1,high,2*idx+1);
-    tree[idx] = tree[2*idx] + tree[2*idx+1];
+    ll mid = low + (high-low)/2;
+    make_tree((idx<<1),low,mid);
+    make_tree((idx<<1)+1,mid+1,high);
+    tree[idx] = tree[(idx<<1)] + tree[(idx<<1)+1];
 }
 
-ll find(ll low, ll high, ll l, ll r, ll idx) {
-
-    if(r<low || l>high) 
+ll find(ll idx, ll low, ll high, ll l, ll r) {
+    
+    if(l>high || r<low)
         return 0;
 
     if(l<=low && high<=r)
         return tree[idx];
 
-    ll mid = low+(high-low)/2;
-    return find(low,mid,l,r,2*idx) + find(mid+1,high,l,r,2*idx+1);  
+    ll mid = low + (high-low)/2;
+    if(mid<l)
+        return find((idx<<1)+1,mid+1,high,l,r);
+    if(r<=mid)
+        return find((idx<<1),low,mid,l,r);
+
+    return find((idx<<1),low,mid,l,r) + find((idx<<1)+1,mid+1,high,l,r);
 }
 
-void update(ll low, ll high, ll idx, ll x, ll val) {
-
+void update(ll idx, ll low, ll high, ll pos, ll val) {
+    
     if(low==high) {
+        A[low] = val;
         tree[idx] = val;
-        A[x] = val;   
         return;
     }
 
-    ll mid = low+(high-low)/2;
-    if(x<=mid)
-        update(low,mid,2*idx,x,val);
-    else
-        update(mid+1,high,2*idx+1,x,val);
+    ll mid = low + (high-low)/2;
 
-    tree[idx] = tree[2*idx] + tree[2*idx+1];
+    if(pos<=mid)
+        update((idx<<1),low,mid,pos,val);
+    else
+        update((idx<<1)+1,mid+1,high,pos,val);
+
+    tree[idx] = tree[(idx<<1)] + tree[(idx<<1)+1];
 }
 
-// Usage - make_tree(0,n-1,1);
-// Usage - find(0,n-1,l,r,1);
-// Usage - update(0,n-1,1,x,val);
+// Usage - make_tree(1,0,n-1);
+// Usage - find(1,0,n-1,l,r);
+// Usage - update(1,0,n-1,x,val);
 
+// Segment tree for range min query. Returns the first index where A[index] = minimum of query range.
 
-// Segment tree for range min query - 0 based indexing in A, 1 based in segtree.
 vector<ll> tree(4*Nmax,0);
 vector<ll> A(Nmax,0);
 
-void make_tree(ll low, ll high, ll idx) {
+void make_tree(ll idx, ll low, ll high) {
 
     if(low==high) {
-        tree[idx] = A[low];
+        tree[idx] = low;
         return;
     }
 
     ll mid = low+(high-low)/2;
-    make_tree(low,mid,2*idx);
-    make_tree(mid+1,high,2*idx+1);
-    tree[idx] = min(tree[2*idx],tree[2*idx+1]);
+    make_tree((idx<<1),low,mid);
+    make_tree((idx<<1)+1,mid+1,high);
+
+    ll left = tree[(idx<<1)], right = tree[(idx<<1)+1];
+    tree[idx] = A[left] <= A[right] ? left : right;
 }
 
-ll find(ll low, ll high, ll l, ll r, ll idx) {
+ll find(ll idx, ll low, ll high, ll l, ll r) {
 
     if(r<low || l>high) 
-        return INT_MAX;
+        return -1;
 
     if(l<=low && high<=r)
         return tree[idx];
 
     ll mid = low+(high-low)/2;
-    return min(find(low,mid,l,r,2*idx),find(mid+1,high,l,r,2*idx+1));  
+
+    if(mid<l)
+        return find((idx<<1)+1,mid+1,high,l,r);
+    if(r<=mid)
+        return find((idx<<1),low,mid,l,r);
+
+    ll left = find((idx<<1),low,mid,l,r);
+    ll right = find((idx<<1)+1,mid+1,high,l,r);
+
+    // if(left==-1)
+    //     return right;
+    // if(right==-1)
+    //     return left;
+
+    return A[left]<=A[right] ? left : right;
 }
 
-void update(ll low, ll high, ll idx, ll x, ll val) {
+void update(ll idx, ll low, ll high, ll pos, ll val) {
 
     if(low==high) {
-        tree[idx] = val;
-        A[x] = val;   
+        A[low] = val;
         return;
     }
 
     ll mid = low+(high-low)/2;
-    if(x<=mid)
-        update(low,mid,2*idx,x,val);
+    if(pos<=mid)
+        update((idx<<1),low,mid,pos,val);
     else
-        update(mid+1,high,2*idx+1,x,val);
+        update((idx<<1)+1,mid+1,high,pos,val);
 
-    tree[idx] = min(tree[2*idx],tree[2*idx+1]);
+    ll left = tree[(idx<<1)], right = tree[(idx<<1)+1];
+    tree[idx] = A[left] <= A[right] ? left : right;
 }
+
