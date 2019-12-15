@@ -1,12 +1,10 @@
 // Different implementations for segment trees.
 
-#define ll long long
-#define Nmax 500000
 
 // Segment tree for range sum query - 0 based indexing in A, 1 based in segtree.
-
-ll tree[4*Nmax] = {0};
-ll A[Nmax] = {0};
+// Initialise with memset(tree,0,sizeof(tree));.
+ll tree[4*Nmax];    
+ll A[Nmax];
 
 void make_tree(ll idx, ll low, ll high) {
     
@@ -55,10 +53,10 @@ void update(ll idx, ll low, ll high, ll pos, ll val) {
 
     tree[idx] = tree[(idx<<1)] + tree[(idx<<1)+1];
 }
-
 // Usage - make_tree(1,0,n-1);
 // Usage - find(1,0,n-1,l,r);
 // Usage - update(1,0,n-1,x,val);
+
 
 // Segment tree for range min query. Returns the first index where A[index] = minimum of query range.
 
@@ -122,4 +120,3 @@ void update(ll idx, ll low, ll high, ll pos, ll val) {
     ll left = tree[(idx<<1)], right = tree[(idx<<1)+1];
     tree[idx] = A[left] <= A[right] ? left : right;
 }
-
