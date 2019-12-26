@@ -3,17 +3,17 @@
 #pragma GCC optimize("O3")
 #include<bits/stdc++.h>
 using namespace std;
- 
 #define ll long long
 #define pb push_back
 #define N 1000000007
 #define N2 998244353
-#define Nmax 100001
+#define Nmax 200002
 #define INF (ll)1e18
 #define pll pair<ll,ll>
 #define mp make_pair
 #define fi first
 #define se second
+#define vv vector
 #define rep(i,n) rep2(i,0,n)
 #define rep2(i,m,n) for(ll i=m;i<(n);i++)
 #define repr(i,n) repr2(i,n,0)
@@ -26,9 +26,12 @@ using namespace std;
 #define fill_nums(A,n) vector<ll> A((n)); for(ll i=0;i<n;i++) scanf("%lld",&A[i]);
 #define fill_edges(adj,m) for(ll i=0;i<m;i++) {ll a, b; scanf("%lld %lld",&a,&b); adj[a-1].pb(b-1); adj[b-1].pb(a-1);}
 #define fill_direct(adj,m) for(ll i=0;i<m;i++) {ll a, b; scanf("%lld %lld",&a,&b); adj[a-1].pb(b-1);}
-#define StarBurstStream ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+#define StarBurstStream ios_base::sync_with_stdio(false); cin.tie(0); //cout.tie(0);
 #define pi 3.1415926535897
-
+#define db double
+#define noop
+#define flu fflush(stdout)
+#define imp {cout<<"No\n"; return 0;}
 
 // Minimal template for topcoder.
 
@@ -48,6 +51,23 @@ using namespace std;
 #define ALL(c) (c).begin(),(c).end()
 #define pi 3.1415926535897
 
+
+// Random Number generation.
+{
+    // Use high precision clock as seed.
+    mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+    cout<<rng()<<endl;
+
+    // Or we can also use address of newly allocated char.
+    mt19937 rng2((uint64_t) new char);
+    cout<<rng2()<<endl;
+
+    // Shuffling an array.
+    vector<ll> A({1,2,3,4,5,6,7,8,9,10});
+    shuffle(A.begin(),A.end(),rng);
+
+    // Tip : Use mt19937_64 for 64 bit randome numbers.
+}
 
 // Custom hash function for long long int types -> to prevent unordered_map/set fails/hacks
 
