@@ -44,3 +44,59 @@ void prim_mst(vector<vector<pll>> &adj) {
         }
     }
 }
+
+
+// DSU methods for Kruskals mst.
+
+ll parent[Nmax];
+ll size[Nmax];
+
+void make_set(ll n) {
+    for(ll i=0;i<n;i++) {
+        parent[i] = i;
+        size[i] = 1;
+    }
+}
+
+ll find(ll v) {
+    if(parent[v]==v)
+        return v;
+    return parent[v]=find(parent[v]);
+}
+
+void dounion(ll a, ll b) {
+    a = find(a);
+    b = find(b);
+
+    if(a!=b) {
+        if(size[a]<size[b])
+            swap(a,b);
+        parent[b] = a;
+        size[a] += size[b];
+    }
+}
+
+vector<pair<ll,pll>> kruskal_mst(vector<vector<pll>> &adj) {
+    ll n = adj.size();
+    vector<pair<ll,pll>> edges;
+    for(ll i=0; i<n; i++) {
+        for(auto j:adj[i]) {
+            edges.push_back({j.fi, {i, j.se}});
+        }
+    }
+
+    sort(edges.begin(), edges.end());
+    make_set(n);
+
+    vector<pair<ll,pll>> res_edges;
+    for(auto e:edges) {
+        ll a = find(e.se.fi);
+        ll b = find(e.se.se);
+        if(a==b) continue;
+
+        dounion(a,b);
+        res_edges.push_back(e);
+    }
+
+    return res_edges;
+}
