@@ -2,31 +2,27 @@
 
 vector<ll> facts, invfacts;
 
-ll extended_gcd(ll a, ll b, ll &x, ll &y) {
-    if(a==0) {
-        x = 0;
-        y = 1;
-        return b;
+ll power(ll x, ll n, ll d) {
+    ll val = (x%d), res = 1;
+    while(n>0) {
+        if(n&1)
+            res = (res*val)%d;
+        val = (val*val)%d;
+        n = n>>1;
     }
-
-    ll x1, y1;
-    ll g = extended_gcd(b%a, a, x1, y1);
-
-    x = y1-(b/a)*x1;
-    y = x1;
-    return g;
+    return (res+d)%d;
 }
 
-ll nck(ll n, ll k) {
+ll nck(ll n, ll k, ll d) {
     if(k>n)
         return 0;
-    return (facts[n]*invfacts[k]%N*invfacts[n-k]%N+N)%N;
+    return (facts[n]*invfacts[k]%d*invfacts[n-k]%d+d)%d;
 }
 
-ll npk(ll n, ll k) {
+ll npk(ll n, ll k, ll d) {
     if(k>n)
         return 0;
-    return (facts[n]*invfacts[n-k]%N+N)%N;
+    return (facts[n]*invfacts[n-k]%d+d)%d;
 }
 
 void initialize_facts(ll n, ll mod) {
@@ -36,9 +32,7 @@ void initialize_facts(ll n, ll mod) {
     invfacts[0] = 1;
 
     for(ll i=1;i<=n;i++) {
-        facts[i] = (facts[i-1]*i)%N;
-        ll x,y;
-        extended_gcd(facts[i],mod,x,y);
-        invfacts[i] = x;
+        facts[i] = (facts[i-1]*i)%mod;
+        invfacts[i] = power(facts[i], mod-2, mod);
     }
 }
