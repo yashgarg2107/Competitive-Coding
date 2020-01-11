@@ -4,6 +4,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
+#define db double
 #define pb push_back
 #define N 1000000007
 #define N2 998244353
@@ -28,16 +29,20 @@ using namespace std;
 #define fill_direct(adj,m) for(ll i=0;i<m;i++) {ll a, b; scanf("%lld %lld",&a,&b); adj[a-1].pb(b-1);}
 #define StarBurstStream ios_base::sync_with_stdio(false); cin.tie(0); //cout.tie(0);
 #define pi 3.1415926535897
-#define db double
 #define noop
 #define flu fflush(stdout)
 #define imp {cout<<"No\n"; return 0;}
+#define debug_vec(vec,n) {rep(idxi,n) cout<<vec[idxi]<<" "; cout<<"\n";}
+#define debug_pvec(vec,n) {rep(idxi,n) cout<<vec[idxi].fi<<"-"<<vec[idxi].se<<"  "; cout<<"\n";}
+#define debug_set(seta) {cout<<seta.size()<<"\n"; for(auto idxi:seta) cout<<idxi<<" "; cout<<"\n";}
+#define debug_map(mappa) {cout<<mappa.size()<<"\n";for(auto idxi:mappa) cout<<idxi.fi<<"-"<<idxi.se<<"  "; cout<<"\n";}
 
 // Minimal template for topcoder.
 
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
+#define db double
 #define pb push_back
 #define N 1000000007
 #define Nmax 100001
@@ -50,6 +55,7 @@ using namespace std;
 #define rep2(i,m,n) for(ll i=m;i<(n);i++)
 #define ALL(c) (c).begin(),(c).end()
 #define pi 3.1415926535897
+#define debug_vec(vec,n) {rep(idxi,n) cout<<vec[idxi]<<" "; cout<<endl;}
 
 
 // Random Number generation.
