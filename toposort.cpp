@@ -39,7 +39,7 @@ void caller() {
 	// For second implementation.
 	for(ll i=0;i<n;i++) {
 		if(!visited[i] && !indeg[i]) {
-			toposort(i,adj,visited);
+			toposort(i,adj,visited,indeg,st);
 		}
 	}
 }
