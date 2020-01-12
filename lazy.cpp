@@ -111,7 +111,7 @@ ll min_query(ll v, ll tl, ll tr, ll l, ll r) {
  
     push(v);
     ll tm = (tl + tr) / 2;
-    
+
     if(tm<l)
         return min_query((v<<1)+1, tm+1, tr, max(l, tm+1), r);
     else if(r<=tm)
@@ -120,7 +120,6 @@ ll min_query(ll v, ll tl, ll tr, ll l, ll r) {
     return min(min_query(v*2, tl, tm, l, min(r, tm)), 
                min_query(v*2+1, tm+1, tr, max(l, tm+1), r));
 }
- 
  
 void build(ll v, ll tl, ll tr) {
     if (tl == tr) {
