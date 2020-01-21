@@ -120,3 +120,41 @@ void update(ll idx, ll low, ll high, ll pos, ll val) {
     ll left = tree[(idx<<1)], right = tree[(idx<<1)+1];
     tree[idx] = A[left] <= A[right] ? left : right;
 }
+
+
+// Segment tree for finding kth 1. Used for kth element currently in the set.
+vector<ll> tree(4*Nmax,0);
+
+ll find(ll idx, ll low, ll high, ll k) {
+    if(k>tree[idx])
+        return -1;
+
+    if(low==high)
+        return low;
+
+    ll mid = low+(high-low)/2;
+    ll cval = idx<<1;
+    if(tree[cval]>=k)
+        return find(cval, low, mid, k);
+    else
+        return find(cval+1, mid+1, high, k-tree[cval]);
+}
+
+void update(ll idx, ll low, ll high, ll pos) {
+    if(low>high)
+        return;
+
+    if(low==high) {
+        tree[idx] = 1;
+        return;
+    }
+
+    ll mid = low+(high-low)/2;
+    ll cval = idx<<1;
+    if(pos<=mid)
+        update(cval, low, mid, pos);
+    else
+        update(cval+1, mid+1, high, pos);
+
+    tree[idx] = tree[cval] + tree[cval+1];
+}
