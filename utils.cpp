@@ -221,6 +221,25 @@ void prefix_matrix(vector<vector<ll>> &A) {
     }
 }
 
+// Function to find negative base representation of a number.
+vector<ll> negbase_rep(ll num, ll base) {
+    // We want to have coefficients as 0<=a<base.
+    vector<ll> v;
+    while(num) {
+        ll q = num/(-base);
+        ll r = num%(-base);
+
+        // Typically neg/neg is rounded towards 0 leaving -ve rem.
+        if(r<0) {
+            q++;
+            r+=base;
+        }
+        num = q;
+        v.pb(r);
+    }
+    return v;
+}
+
 
 // Digit dp framework - example
 
