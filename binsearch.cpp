@@ -33,3 +33,31 @@ int main() {
     printf("%lld\n",low);
 }
 
+
+// Ceil sqrt function.
+// Predicate : numbers such tha mid*mid>=x.
+// Find first point where predicate is true.
+ll sqroot(ll x) {
+    ll low = 1, high = x;
+    while(low<high) {
+        ll mid = low+(high-low)/2;
+        if(mid>x/mid || mid*mid>=x) 
+            high = mid;
+        else low = mid+1;
+    }
+    return low;
+}
+
+// Floor sqrt function.
+// Predicate : numbers such tha mid*mid>x.
+// Find last point where predicate is false.
+ll sqrt(ll x) {
+    ll low = 1, high = x;
+    while(low<high) {
+
+        ll mid = low+(high+1-low)/2;
+        if(mid>x/mid) high = mid-1;
+        else low = mid;
+    }
+    return low;
+}
