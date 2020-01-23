@@ -24,3 +24,52 @@ void bfs(ll idx, vector<vector<ll>> &adj, vector<char> &visited) {
         }
     }
 }
+
+
+// BFS on complement graph.
+
+// seta is set of edges (u,v) where u<v.
+// This functions finds the number and sizes of connected components.
+void bfs_compl(vector<pll> &seta) {
+    set<ll> nvisited;
+    rep(i,n) 
+        nvisited.insert(i);
+
+    vector<ll> res;
+    rep(i,n) {
+        if(nvisited.count(i)) {
+            queue<ll> q;
+            nvisited.erase(i);
+            q.push(i);
+            ll sz = 1;
+
+            while(!q.empty()) {
+                ll t = q.front(); 
+                q.pop();
+
+                vector<ll> temp;
+                for(auto i:nvisited) {
+                    pll edge = {min(i,t),max(i,t)};
+                    if(!seta.count(edge)) {
+                        temp.pb(i);
+                    }
+                }
+
+                for(auto i:temp) {
+                    q.push(i);
+                    nvisited.erase(i);
+                    sz++;
+                }
+            }
+
+            res.pb(sz);
+        }
+    }
+
+    sort(ALL(res));
+
+    printf("%lld\n", (ll)res.size());
+    for(auto i:res)
+        printf("%lld ", i);
+    printf("\n");
+}
