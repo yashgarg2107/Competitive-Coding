@@ -3,6 +3,10 @@
 // Arrays based implementation.
 // Here size of this array is Max number of nodes * Alphabet size.
 // Will work for numbers till 2^30.
+
+// Intialise with:
+// memset(trie, 0, sizeof(trie));
+// memset(vals, 0, sizeof(vals));
 ll trie[3200000][2], vals[3200000];
 ll counter = 1;
 
