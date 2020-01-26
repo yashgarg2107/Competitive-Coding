@@ -1,6 +1,44 @@
 // Implementaton of binary trie (used for xor applications mainly). 
-// Use C++11 for correct node and pointer behaviour.
 
+// Arrays based implementation.
+// Here size of this array is Max number of nodes * Alphabet size.
+// Will work for numbers till 2^30.
+ll trie[3200000][2], vals[3200000];
+ll counter = 1;
+
+void add_bin(ll val) {
+    ll curr = 1;
+    for(ll i=30;i>=0;i--) {
+        vals[curr] += 1;
+        ll c = !!((1<<i)&val);
+        if(!trie[curr][c]) trie[curr][c] = ++counter;
+        curr = trie[curr][c];
+    }
+    vals[curr] += 1;
+}
+
+void rem_bin(ll val) {
+    ll curr = 1;
+    for(ll i=30;i>=0;i--) {
+        vals[curr] -= 1;
+        ll c = !!((1<<i)&val);
+        curr = trie[curr][c];
+    }
+    vals[curr] -= 1;
+}
+
+ll count_bin(ll val) {
+    ll curr = 1;
+    for(ll i=30;i>=0;i--) {
+        ll c = !!((1<<i)&val);
+        curr = trie[curr][c];
+    }
+    return vals[curr];
+}
+
+
+// Node tree based implementation.
+// Use C++11 for correct node and pointer behaviour.
 struct node {
     ll bit;
     node* c0;
@@ -77,6 +115,3 @@ ll count_bin(node *root, ll val) {
     }
     return curr->val;
 }
-
-// Problem -> https://codeforces.com/contest/817/problem/E
-// TODO(yash): STL based approach for the same.
