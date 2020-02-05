@@ -29,7 +29,6 @@ using namespace std;
 #define StarBurstStream ios_base::sync_with_stdio(false); cin.tie(0); //cout.tie(0);
 #define pi 3.1415926535897
 #define db double
-#define noop
 #define flu fflush(stdout)
 #define imp {cout<<"NO\n"; return 0;}
 #define debug_vec(vec,n) {rep(idxi,n) cout<<vec[idxi]<<" "; cout<<"\n";}

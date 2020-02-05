@@ -25,6 +25,33 @@ void bfs(ll idx, vector<vector<ll>> &adj, vector<char> &visited) {
     }
 }
 
+// BFS for 2D matrix.
+void bfs() {
+    ll mx[4] = {1,0,-1,0};
+    ll my[4] = {0,1,0,-1};
+
+    rep(i,n) rep(j,m) {
+        if(!vis[i][j]) {
+
+            queue<pll> q;
+            q.push({i,j});
+            vis[i][j] = 1;
+
+            while(!q.empty()) {
+                pll t = q.front(); q.pop();
+
+                rep(i,4) {
+                    ll nx = t.fi+mx[i], ny = t.se+my[i];
+                    if(nx>=0 && nx<n && ny<m && ny>=0 && !vis[nx][ny]) {
+                        vis[nx][ny] = 1;
+                        q.push({nx,ny});
+                    }
+                }
+            }   
+        }
+    }
+}
+
 
 // BFS on complement graph.
 
