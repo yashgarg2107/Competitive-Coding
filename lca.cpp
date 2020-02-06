@@ -122,3 +122,75 @@ void create(vector<vector<ll>> &adj) {
 
     dfs(0,0,adj);
 }
+
+
+// LCA implementation with binary lifting that also finds the maximum
+// weighted edge between u and v.
+
+vector<ll> tin, tout;
+vector<vector<pll>> up;
+ll L, timer = 0;
+ll n;
+vv<vv<pll>> adj2(Nmax);
+void dfs(ll idx, ll par, ll key, vector<vector<pll>> &adj2) {
+
+    tin[idx] = timer++;
+    up[idx][0] = {par, key};
+
+    for(ll i=1;i<=L;i++) {
+        up[idx][i].fi = up[up[idx][i-1].fi][i-1].fi;
+        up[idx][i].se = max(up[idx][i-1].se, up[up[idx][i-1].fi][i-1].se);
+    }
+
+    for(auto i:adj2[idx])
+        if(i.se!=par)
+            dfs(i.se,idx,i.fi,adj2);
+
+    tout[idx] = timer++;
+}
+
+bool is_ancestor(ll u, ll v) {
+    return tin[u]<=tin[v] && tout[v]<=tout[u];
+}
+
+ll find(ll u, ll v) {
+    ll maxi = 0;
+    for(ll i=L;i>=0;i--) {
+        if(!is_ancestor(up[u][i].fi,v)) {
+            maxi = max(maxi, up[u][i].se);
+            u =  up[u][i].fi;
+        }
+    }
+    maxi = max(maxi, up[u][0].se);
+    return maxi;
+}
+
+ll lca(ll u, ll v) {
+    if(is_ancestor(u,v)) {
+        return find(v,u);
+    }
+    if(is_ancestor(v,u)) {
+        return find(u,v);
+    }
+
+    ll u_ = u;
+    for(ll i=L;i>=0;i--) {
+        if(!is_ancestor(up[u][i].fi,v))
+            u = up[u][i].fi;
+    }
+
+    ll al = up[u][0].fi; u = u_;
+    return max(find(u,al), find(v,al));
+}
+
+void create() {
+
+    tin.resize(n);
+    tout.resize(n);
+    timer = 0;
+
+    L = ceil(log2((double)n));
+    up.assign(n, vector<pll>(L+1));
+
+    dfs(0,0,0,adj2);
+}

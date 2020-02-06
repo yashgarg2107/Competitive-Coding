@@ -26,7 +26,10 @@ void bfs(ll idx, vector<vector<ll>> &adj, vector<char> &visited) {
 }
 
 // BFS for 2D matrix.
-void bfs() {
+vector<vector<char>> vis(Nmax, vector<char>(Nmax,0));
+vector<vector<ll>> A(Nmax, vector<ll>(Nmax,0));
+
+void bfs(ll n, ll m) {
     ll mx[4] = {1,0,-1,0};
     ll my[4] = {0,1,0,-1};
 
